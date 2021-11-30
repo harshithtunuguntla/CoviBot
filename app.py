@@ -1,6 +1,23 @@
 from flask import Flask, render_template, request, redirect, Response
+import time
+import RPi.GPIO as GPIO
+GPIO.setwarnings(False)
+
 
 app = Flask(__name__)
+
+left_motor = 4
+right_motor = 25
+
+left_motor_back = 11
+right_motor_back = 12
+
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(left_motor, GPIO.OUT)
+GPIO.setup(right_motor, GPIO.OUT)
+GPIO.setup(left_motor_back, GPIO.OUT)
+GPIO.setup(right_motor_back, GPIO.OUT)
 
 
 #10000 - forward
@@ -13,22 +30,43 @@ app = Flask(__name__)
 
 
 def move_bot_forward():
+    GPIO.output(left_motor, GPIO.HIGH)
+    GPIO.output(right_motor, GPIO.HIGH)
+    GPIO.output(left_motor_back, GPIO.LOW)
+    GPIO.output(right_motor_back, GPIO.LOW)
     print("Sent Command to raspi - move f")
     pass
 
 def move_bot_left():
+    GPIO.output(left_motor, GPIO.LOW)
+    GPIO.output(right_motor, GPIO.HIGH)
+    GPIO.output(left_motor_back, GPIO.LOW)
+    GPIO.output(right_motor_back, GPIO.LOW)
     print("Sent Command to raspi - move l")
     pass
 
 def move_bot_stop():
+    GPIO.output(left_motor, GPIO.LOW)
+    GPIO.output(right_motor, GPIO.LOW)
+    GPIO.output(left_motor_back, GPIO.LOW)
+    GPIO.output(right_motor_back, GPIO.LOW)
     print("Sent Command to raspi - move s")
+
     pass
 
 def move_bot_right():
+    GPIO.output(left_motor, GPIO.HIGH)
+    GPIO.output(right_motor, GPIO.LOW)
+    GPIO.output(left_motor_back, GPIO.LOW)
+    GPIO.output(right_motor_back, GPIO.LOW)
     print("Sent Command to raspi - move r")
     pass
 
 def move_bot_backward():
+    GPIO.output(left_motor_back, GPIO.HIGH)
+    GPIO.output(right_motor_back, GPIO.HIGH)
+    GPIO.output(left_motor, GPIO.LOW)
+    GPIO.output(right_motor, GPIO.LOW)
     print("Sent Command to raspi - move b")
     pass
 
