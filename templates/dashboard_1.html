@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DashBoard 1</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style>
+
+        .namelogo{
+            font-family: 'Inter', sans-serif;
+            font-size: 25px;
+            font-weight:800;
+            color: #1864FF;
+            padding: 1%;
+        }
+        .dashboardheading{
+            font-family: 'Inter', sans-serif;
+            font-size: 40px;
+            font-weight:800;
+            color: #1864FF;
+        }
+
+        .btn {
+            min-width: 250px;
+            background-color: #4E3388;
+            color: white;
+        }
+
+        .columcolor
+        {
+            background-color: #ffe600a4;
+        }
+
+        .rotateicon{
+            transform:rotate(0deg);
+        }
+        .rotateicon90{
+            transform:rotate(90deg);
+        }
+        .rotateicon180{
+            transform:rotate(180deg);
+        }
+        .rotateicon270{
+            transform:rotate(270deg);
+        }
+
+        .spacebuttons {
+        display: flex;
+        justify-content:space-between; 
+        }
+        
+    </style>
+</head>
+
+
+<body>
+
+    <div class="namelogo">
+        CoviBot
+    </div>
+
+
+
+    <div class="row justify-content-center dashboardheading">
+        DashBoard
+    </div>
+
+
+    <div class="container columcolor">
+
+        <div class="row">
+
+            <div class="col-md-1 ">
+
+            </div>
+
+
+            <div class="col-md-5 ">
+
+                <br>
+                <br>
+                <br>
+                <br>
+
+
+    
+                <div class="row justify-content-center">
+                    <i class="bi bi-triangle">
+                        <svg id ="moveforward" onclick="move_forward()" xmlns="http://www.w3.org/2000/svg" class="rotateicon" width="80" height="80" fill="currentColor" class="bi bi-triangle" viewBox="0 0 16 16">
+                            <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
+                            </svg>
+                    </i>
+                </div>
+                    
+                    <br>
+                    <br>
+
+                    <div class="row spacebuttons">
+                            <i class="bi bi-triangle"  >
+                            <svg id ="moveleft" onclick="move_left()" xmlns="http://www.w3.org/2000/svg" class="rotateicon270" width="80" height="80" fill="currentColor" class="bi bi-triangle" viewBox="0 0 16 16">
+                                <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
+                                </svg>
+                        </i>
+                        
+
+                        <i class="bi bi-circle">
+                            <svg id ="movestop" onclick="move_stop()"  xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" class="bi bi-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                              </svg>
+                        </i>
+                        <i class="bi bi-triangle">
+                            <svg id ="moveright" onclick="move_right()"  xmlns="http://www.w3.org/2000/svg" class="rotateicon90" width="80" height="80" fill="currentColor" class="bi bi-triangle" viewBox="0 0 16 16">
+                                <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
+                                </svg>
+                        </i>
+                    </div>
+                    
+                    <br>
+                    <br>
+
+                    <div class="row justify-content-center">
+                        <i class="bi bi-triangle">
+                            <svg id ="moveback" onclick="move_back()"  xmlns="http://www.w3.org/2000/svg" class="rotateicon180" width="80" height="80" fill="currentColor" class="bi bi-triangle" viewBox="0 0 16 16">
+                                <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
+                                </svg>
+                        </i>
+                   
+                    </div>
+
+                    <br>
+
+                    <div class="row justify-content-center">
+                     <p style="font-size: 20px;"><strong>Bot State :</strong> <span id="botstate">Currently Stopped</span></p>
+                    </div>
+                    
+              </div>
+    
+              <div class="col-md-5">
+
+                <br>
+                <br>
+                <br>
+                <br>
+
+
+                <div class="row justify-content-end">
+                <button type="button" class="btn btn-default btn-lg" >Take Control</button>
+                </div>
+
+                <br>
+
+                <div class="row justify-content-end">
+                <button type="button" class="btn btn-default btn-lg" >Move Bot to room</button>
+                </div>
+
+                <br>
+
+                <div class="row justify-content-end">
+                <button type="button" class="btn btn-default btn-lg" >Scan People</button>
+                </div>
+
+                <br>
+
+                <div class="row justify-content-end">
+                <button type="button" class="btn btn-default btn-lg" >Give Medicine</button>
+                </div>
+
+                <br>
+
+                <div class="row justify-content-end">
+                <button type="button" class="btn btn-default btn-lg" >Additionals</button>
+                </div>
+
+                <br>
+                <br>
+                <br>
+                    
+
+              </div>
+
+              <div class="col-md-1 ">
+
+            </div>
+
+
+
+        </div>
+
+        
+
+    </div>
+
+
+            
+        <script>
+            function move_forward(){
+
+                
+
+                console.log("Inside  forward");
+                document.getElementById("moveforward").style.fill="red";
+                document.getElementById("moveleft").style.fill="black";
+                document.getElementById("moveright").style.fill="black";
+                document.getElementById("moveback").style.fill="black";
+                document.getElementById("movestop").style.fill="black";
+                document.getElementById("botstate").innerHTML = "Moving Forward";
+                let url = "/dashboard_1/10000";
+                document.location.href=url;
+
+            }
+            function move_left(){
+                console.log("Inside  Left");
+                document.getElementById("moveforward").style.fill="black";
+                document.getElementById("moveleft").style.fill="red";
+                document.getElementById("moveright").style.fill="black";
+                document.getElementById("moveback").style.fill="black";
+                document.getElementById("movestop").style.fill="black";
+                document.getElementById("botstate").innerHTML = "Moving Left";
+                let url = "/dashboard_1/01000";
+                document.location.href=url;
+            }
+
+            function move_stop(){
+                console.log("Inside  Stop");
+                document.getElementById("moveforward").style.fill="black";
+                document.getElementById("moveleft").style.fill="black";
+                document.getElementById("moveright").style.fill="black";
+                document.getElementById("moveback").style.fill="black";
+                document.getElementById("movestop").style.fill="red";
+                document.getElementById("botstate").innerHTML = "Stopped";
+                let url = "/dashboard_1/00100";
+                document.location.href=url;
+            }
+
+            function move_right(){
+                console.log("Inside  Right");
+                document.getElementById("moveforward").style.fill="black";
+                document.getElementById("moveleft").style.fill="black";
+                document.getElementById("moveright").style.fill="red";
+                document.getElementById("moveback").style.fill="black";
+                document.getElementById("movestop").style.fill="black";
+                document.getElementById("botstate").innerHTML = "Moving Right";
+                let url = "/dashboard_1/00010";
+                document.location.href=url;
+
+            }
+            function move_back(){
+                console.log("Inside  Back");
+                document.getElementById("moveforward").style.fill="black";
+                document.getElementById("moveleft").style.fill="black";
+                document.getElementById("moveright").style.fill="black";
+                document.getElementById("moveback").style.fill="red";
+                document.getElementById("movestop").style.fill="black";
+                document.getElementById("botstate").innerHTML = "Moving Backward";
+                let url = "/dashboard_1/00001";
+                document.location.href=url;
+            }
+ 
+        </script>
+
+        
+
+        
+</body>
+
+
+
+
+</html>

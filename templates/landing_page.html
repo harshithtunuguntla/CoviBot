@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+    <style>
+        .namelogo{
+            font-family: 'Inter', sans-serif;
+            font-size: 25px;
+            font-weight:800;
+            color: #1864FF;
+            padding: 1%;
+        }
+
+        .welcomemessage{
+            font-family: 'Inter', sans-serif;
+            font-size: 40px;
+            font-weight:800;
+            color: #1864FF;
+        }
+        
+        .welcomedescription{
+          background-color: #ffe600a4;
+          color: rgb(0, 0, 0);
+          font-family: 'Inter', sans-serif;
+            font-size: 22px;
+        }
+
+        .buttonfont{
+          font-family: 'Inter', sans-serif;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+
+    <div class="namelogo">
+        CoviBot
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div class="container">
+        <div id="demo" class="row justify-content-center welcomemessage">
+            <!-- Welcome to CoviBot !! -->
+        </div>
+
+        <br>
+        <br>
+
+        <br>
+
+        <!-- <p id="demo"></p> -->
+
+       <div class="row container justify-content-center welcomedescription">
+         Hello there!!!   
+        </div>
+
+        <div class="row container justify-content-center welcomedescription">
+          Thanks for visiting CoviBot, Here is the quick overview of how this project works!
+         </div>
+
+         <div class="row container justify-content-center welcomedescription">
+           <br>
+           <br>
+         </div>
+
+         
+         <div class="row container justify-content-center welcomedescription">
+          CoviBot is designed to reach people suffering from covid!
+          This bot can be controlled from the interface designed.
+         </div>
+
+         <div class="row container justify-content-center welcomedescription" >
+          Please click on take me to dashboard for further proceeding.
+         </div>
+
+         <br>
+         <br>
+         <br>
+
+         <div class="row justify-content-center">
+         <a href=dashboard_1>
+           <button type="button" class="btn btn-primary btn-lg buttonfont">Take me to DashBoard</button>
+           </a>
+         </div>
+
+
+    </div>
+
+        
+    <script>
+          var i = 0;
+        var txt = 'Welcome to CoviBot!!!!'; /* The text */
+        var speed = 150; /* The speed/duration of the effect in milliseconds */
+
+        function typeWriter() {
+          if (i < txt.length) {
+            document.getElementById("demo").innerHTML += txt.charAt(i);
+            i++;
+            setTimeout(typeWriter, speed);
+          }
+        }
+
+        typeWriter();
+    </script>
+    
+</body>
+</html>
