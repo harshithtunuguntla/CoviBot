@@ -3,6 +3,14 @@ from flask import Flask, render_template, request, redirect, Response
 app = Flask(__name__)
 
 
+#10000 - forward
+#01000 - left
+#00100 - stop
+#00010 - right
+#00001 - backward
+
+
+
 
 def move_bot_forward():
     print("Sent Command to raspi - move f")
