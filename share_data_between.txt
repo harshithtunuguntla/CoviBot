@@ -1,0 +1,11 @@
+github url authentication : git remote set-url origin https://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@github.com/harshithtunuguntla/CoviBot.git
+
+
+
+To-Do
+aruco markers
+face recognition - bot activation
+raspberry pi power up
+java script speech to text
+calibration
+
