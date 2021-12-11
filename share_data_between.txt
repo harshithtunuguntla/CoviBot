@@ -4,8 +4,10 @@ github url authentication : git remote set-url origin https://ghp_sCoBoYUt8S4CI6
 
 To-Do
 aruco markers
-face recognition - bot activation
+face recognition - bot activation - Lights on
 raspberry pi power up
 java script speech to text
 calibration
-
+Sending Emails
+Face Mask Detection
+Speaker attachment - Bluetooth - Activities of bot
