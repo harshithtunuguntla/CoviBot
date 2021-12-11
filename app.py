@@ -6,10 +6,10 @@ GPIO.setwarnings(False)
 
 app = Flask(__name__)
 
-left_motor = 4
+left_motor = 11
 right_motor = 25
 
-left_motor_back = 11
+left_motor_back = 4
 right_motor_back = 12
 
 
@@ -40,7 +40,7 @@ def move_bot_forward():
 def move_bot_left():
     GPIO.output(left_motor, GPIO.LOW)
     GPIO.output(right_motor, GPIO.HIGH)
-    GPIO.output(left_motor_back, GPIO.LOW)
+    GPIO.output(left_motor_back, GPIO.HIGH)
     GPIO.output(right_motor_back, GPIO.LOW)
     print("Sent Command to raspi - move l")
     pass
@@ -58,7 +58,7 @@ def move_bot_right():
     GPIO.output(left_motor, GPIO.HIGH)
     GPIO.output(right_motor, GPIO.LOW)
     GPIO.output(left_motor_back, GPIO.LOW)
-    GPIO.output(right_motor_back, GPIO.LOW)
+    GPIO.output(right_motor_back, GPIO.HIGH)
     print("Sent Command to raspi - move r")
     pass
 
