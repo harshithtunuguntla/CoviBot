@@ -8,7 +8,7 @@ cap = cv2.VideoCapture(-1)
 while True:
 
     success,img = cap.read()
-    img = cv2.rotate(img, cv2.ROTATE_180)
+    # img = cv2.rotate(img, cv2.ROTATE_180)
     faceLoc1 = face_recognition.face_locations(img)
     print("faces" + str(faceLoc1))
 

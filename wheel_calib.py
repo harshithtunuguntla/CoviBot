@@ -3,11 +3,12 @@ import RPi.GPIO as GPIO
 GPIO.setwarnings(False)
 
 
-left_motor = 11
-right_motor = 25
+left_motor = 17
+left_motor_back = 27
 
-left_motor_back = 4
-right_motor_back = 12
+
+right_motor = 23
+right_motor_back = 24
 
 
 GPIO.setmode(GPIO.BCM)
@@ -18,7 +19,7 @@ GPIO.setup(right_motor_back, GPIO.OUT)
 
 
 while True:
-    nl = [11,25,4,12]
+    nl = [17,27,23,24]
 
     inp = int(input("Enter testing pin : "))
     inp2 = int(input("Enter testing pin 2 : "))

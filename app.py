@@ -6,11 +6,11 @@ GPIO.setwarnings(False)
 
 app = Flask(__name__)
 
-left_motor = 11
-right_motor = 25
+left_motor = 23
+left_motor_back = 24
 
-left_motor_back = 4
-right_motor_back = 12
+right_motor = 17
+right_motor_back = 27
 
 
 GPIO.setmode(GPIO.BCM)
