@@ -1,24 +1,28 @@
 from flask import Flask, render_template, request, redirect, Response
 import time
-import RPi.GPIO as GPIO
-GPIO.setwarnings(False)
+# import RPi.GPIO as GPIO
+# GPIO.setwarnings(False)
+
+
+
+
+# left_motor = 23
+# left_motor_back = 24
+
+# right_motor = 17
+# right_motor_back = 27
+
+# motor_speed = 25
+
+
+# GPIO.setmode(GPIO.BCM)
+# GPIO.setup(left_motor, GPIO.OUT)
+# GPIO.setup(right_motor, GPIO.OUT)
+# GPIO.setup(left_motor_back, GPIO.OUT)
+# GPIO.setup(right_motor_back, GPIO.OUT)
 
 
 app = Flask(__name__)
-
-left_motor = 23
-left_motor_back = 24
-
-right_motor = 17
-right_motor_back = 27
-
-
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(left_motor, GPIO.OUT)
-GPIO.setup(right_motor, GPIO.OUT)
-GPIO.setup(left_motor_back, GPIO.OUT)
-GPIO.setup(right_motor_back, GPIO.OUT)
-
 
 #10000 - forward
 #01000 - left
@@ -70,6 +74,22 @@ def move_bot_backward():
     print("Sent Command to raspi - move b")
     pass
 
+def lights_on():
+    print("Inside Lights on")
+    pass
+
+def lights_off():
+    print("Inside Lights off")
+    pass
+
+def uv_on():
+    print("Inside UV on")
+    pass
+
+def uv_off():
+    print("Inside UV off")
+    pass
+
 @app.route('/')
 def landing_page():
     return render_template("landing_page.html")
@@ -98,6 +118,41 @@ def dashboard_1_action(val):
         print("Bot Move Forward Command Activated")
         move_bot_backward()
     return '',204
+
+@app.route('/additional_settings',  methods=['POST','GET'])
+def additional_settings():
+    if request.method=='POST':
+        print("inside post")
+        value_received = request.form["entered_motor_value"]
+        print(value_received)
+        global motor_speed
+        motor_speed = value_received
+        print(motor_speed)
+        return '',204
+
+
+    else:
+        return render_template('additional_settings.html')
+
+@app.route('/additional_settings/<val>')
+def additional_settings_action(val):
+    if(val=='l1'):
+        print("Lights Tasdasun on activated")
+        lights_on()
+    elif(val=="l0"):
+        print("Lights Tuun off activated")
+        lights_off()
+    elif(val=="u0"):
+        print("UV Trun off activated")
+        uv_off()
+    elif(val=="u1"):
+        print("UV Trun on activated")
+        uv_on()
+    return '',204
+    
+
+
+
 
 
 if __name__ == '__main__':
