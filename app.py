@@ -360,7 +360,14 @@ def dimension():
     GPIO.cleanup()
     return '',204
 
-
+@app.royte('/sanitizer')
+def sanitizer():
+    while True:     
+        if GPIO.input(ir_sensor):
+            print( "Sanitizer asked" ) 
+            GPIO.output(uv_led1, 1)      
+        else:   
+            GPIO.output(uv_led1, 0)  
 
 
 
