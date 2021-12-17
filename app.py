@@ -1,14 +1,17 @@
 from flask import Flask, render_template, request, redirect, Response
 import time
-import RPi.GPIO as GPIO
-from flask.templating import render_template_string
-GPIO.setwarnings(False)
 
 import cv2
 import face_recognition
 
+import RPi.GPIO as GPIO
+from flask.templating import render_template_string
+GPIO.setwarnings(False)
 
-cap = cv2.VideoCapture(-1)
+
+
+
+
 
 motor_speed = 40
 global lock
@@ -183,27 +186,35 @@ def uv_off():
 def start_lockdown_procedure():
 
     global lock
+    cap = cv2.VideoCapture(-1)
+
 
     while lock:
+        print("while loki ocha")
 
         success,img = cap.read()
+        print("Images ochai")
         # img = cv2.rotate(img, cv2.ROTATE_180)
-        faceLoc1 = face_recognition.face_locations(img)
-        print("faces" + str(faceLoc1))
+        if success:
+            print("In succccccccc")
+            faceLoc1 = face_recognition.face_locations(img)
+            print("faces" + str(faceLoc1))
 
-        print(faceLoc1)
+            print(faceLoc1)
 
-        if(faceLoc1):
-        
-            GPIO.output(buzzer,GPIO.HIGH)
-            faceLoc = faceLoc1[0]
-            print(faceLoc)
-            cv2.rectangle(img,(faceLoc[3],faceLoc[0]),(faceLoc[1],faceLoc[2]),(255,0,255),2)
-        else :
-            GPIO.output(buzzer,GPIO.LOW)
+            if(faceLoc1):
+                print("yeah faceloc1")
+            
+                GPIO.output(uv_led1,GPIO.HIGH)
+                faceLoc = faceLoc1[0]
+                print(faceLoc)
+                cv2.rectangle(img,(faceLoc[3],faceLoc[0]),(faceLoc[1],faceLoc[2]),(255,0,255),2)
+            else :
+                GPIO.output(uv_led1,GPIO.LOW)
 
-        cv2.imshow("Image",img)
-        cv2.waitKey(1)
+            cv2.imshow("Image",img)
+            cv2.waitKey(1)
+
 
 def distance():
     print('Inside Distance')
@@ -279,7 +290,8 @@ def lockdown_start():
 def lockdown_stop():
     global lock
     lock=False
-    start_lockdown_procedure()
+
+    cv2. destroyAllWindows()
 
     print("Insidde Lockdown Stop")
     return '',204

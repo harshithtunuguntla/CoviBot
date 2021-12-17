@@ -12,6 +12,8 @@
 
 import RPi.GPIO as GPIO
 import time
+
+from app import move_bot_forward, move_bot_stop
  
 #GPIO Mode (BOARD / BCM)
 GPIO.setmode(GPIO.BCM)
@@ -56,6 +58,11 @@ if __name__ == '__main__':
         while True:
             dist = distance()
             print(dist)
+            if(distance>10):
+                move_bot_forward()
+            else:
+                move_bot_stop()
+
             # print ("Measured Distance = %.1f cm" % dist)
             time.sleep(1)
  
