@@ -361,7 +361,12 @@ def dimension():
     GPIO.cleanup()
     return '',204
 
+
 @app.route('/sanitizer')
+def sanitizer_page():
+    return render_template("sanitizer.html")
+
+@app.route('/sanitizer/on')
 def sanitizer():
     while True:     
         if GPIO.input(ir_sensor):
