@@ -40,7 +40,7 @@ GPIO.setup(front_led1, GPIO.OUT)
 GPIO.setup(front_led2, GPIO.OUT)
 
 GPIO.setup(ir_sensor,GPIO.IN)
-GPIO.setup(sanitizer,GPIO.IN)
+GPIO.setup(sanitizer,GPIO.OUT)
 
 GPIO.setup(GPIO_TRIGGER, GPIO.OUT)
 GPIO.setup(GPIO_ECHO, GPIO.IN)
@@ -72,21 +72,24 @@ if(GPIO.input(ir_sensor) == True):
 
 
 def move_bot_forward():
-    global motor_speed
-    lm_pwm.ChangeDutyCycle(motor_speed)
-    rm_pwm.ChangeDutyCycle(motor_speed)
+    if True:
+        global motor_speed
+        lm_pwm.ChangeDutyCycle(motor_speed)
+        rm_pwm.ChangeDutyCycle(motor_speed)
 
-    lmb_pwm.ChangeDutyCycle(0)
-    rmb_pwm.ChangeDutyCycle(0)
+        lmb_pwm.ChangeDutyCycle(0)
+        rmb_pwm.ChangeDutyCycle(0)
 
 
 
-    # GPIO.output(left_motor, GPIO.HIGH)
-    # GPIO.output(right_motor, GPIO.HIGH)
-    # GPIO.output(left_motor_back, GPIO.LOW)
-    # GPIO.output(right_motor_back, GPIO.LOW)
-    print("Sent Command to raspi - move f")
-    pass
+        # GPIO.output(left_motor, GPIO.HIGH)
+        # GPIO.output(right_motor, GPIO.HIGH)
+        # GPIO.output(left_motor_back, GPIO.LOW)
+        # GPIO.output(right_motor_back, GPIO.LOW)
+        print("Sent Command to raspi - move f")
+    else:
+        print("in passs")
+        pass
 
 def move_bot_left():
     global motor_speed
@@ -170,6 +173,7 @@ def uv_off():
     pass
 
 def distance():
+    print('Inside Distance')
     # set Trigger to HIGH
     GPIO.output(GPIO_TRIGGER, True)
  
@@ -182,10 +186,12 @@ def distance():
  
     # save StartTime
     while GPIO.input(GPIO_ECHO) == 0:
+        print('Inside echo')
         StartTime = time.time()
  
     # save time of arrival
     while GPIO.input(GPIO_ECHO) == 1:
+        print('Inside trig')
         StopTime = time.time()
  
     # time difference between start and arrival
@@ -193,7 +199,7 @@ def distance():
     # multiply with the sonic speed (34300 cm/s)
     # and divide by 2, because there and back
     distance = (TimeElapsed * 34300) / 2
- 
+    print('exiting distance')
     return distance
 
 @app.route('/')
@@ -225,21 +231,29 @@ def dashboard_1_action(val):
         move_bot_backward()
     return '',204
 
-@app.route('monitorning')
+@app.route('/monitoring')
 def monitorning():
     return render_template('monitoring.html')
 
-@app.route('monitorning/start')
+@app.route('/monitoring/start')
 def monitoring_start():
-    if(distance()>10):
-        move_bot_forward
-    else:
-        move_bot_right
+    print("Insidde Monitoring Start")
+
+    while True:
+        print(distance())
+        if(distance()>10):
+            move_bot_forward()
+        else:
+            move_bot_stop()
+        
+        time.sleep(1)
+        
     return '',204
 
-@app.route('monitoring/stop')
+@app.route('/monitoring/stop')
 def monitorning_stop():
-    move_bot_stop
+    print('Inside Monitoring stop')
+    move_bot_stop()
     return '',204
 
 @app.route('/additional_settings',  methods=['POST','GET'])

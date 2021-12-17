@@ -93,7 +93,7 @@
 
 
                     <div class="row justify-content-center">
-                        <label for="range_value" class="form-label"><h2>Monitorning Status: <span id="monitorningstate">OFF</span></h2></label>  
+                        <label for="range_value" class="form-label"><h2>Monitoring Status: <span id="monitoringstate">OFF</span></h2></label>  
                     </div>
 
                         <!-- <br> -->
@@ -101,12 +101,12 @@
                     <div class="row justify-content-center">
 
                         <div classs="col-md-5">
-                            <button class="btn" style="background-color: green;" onclick="monitorning_on()">Start Monitorning</button>  
+                            <button class="btn" style="background-color: green;" onclick="monitoring_on()">Start Monitorning</button>  
                         </div>
 
 
                         <div classs="col-md-5">
-                        <button class="btn" style="background-color: red;" onclick="monitorning_off()">Stop Monitorning</button>  
+                        <button class="btn" style="background-color: red;" onclick="monitoring_off()">Stop Monitorning</button>  
                         </div>
 
                     </div>
@@ -178,17 +178,17 @@
             // 00010 - right
             // 00001 - backward
 
-            function monitorning_on(){
-                console.log("Monitorning On");
-                document.getElementById("monitorningstate").innerHTML = "ON";
-                let url = "/monitorning/start";
+            function monitoring_on(){
+                console.log("Monitoring On");
+                document.getElementById("monitoringstate").innerHTML = "ON";
+                let url = "/monitoring/start";
                 document.location.href=url;
             }
 
-            function monitorning_off(){
-                console.log("Monitorning Off");
-                document.getElementById("monitorningstate").innerHTML = "OFF";
-                let url = "/monitorning/stop";
+            function monitoring_off(){
+                console.log("Monitoring Off");
+                document.getElementById("monitoringstate").innerHTML = "OFF";
+                let url = "/monitoring/stop";
                 document.location.href=url;
             }
 
