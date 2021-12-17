@@ -11,7 +11,7 @@ GPIO.setwarnings(False)
 
 
 
-
+sanitizer_pin = 12
 
 motor_speed = 40
 global lock
@@ -33,7 +33,7 @@ front_led1 = 13
 front_led2 = 19
 
 ir_sensor = 6
-sanitizer=7
+# sanitizer = 12
 
 buzzer = 11
 
@@ -53,7 +53,7 @@ GPIO.setup(front_led1, GPIO.OUT)
 GPIO.setup(front_led2, GPIO.OUT)
 
 GPIO.setup(ir_sensor,GPIO.IN)
-GPIO.setup(sanitizer,GPIO.OUT)
+GPIO.setup(sanitizer_pin,GPIO.OUT)
 
 GPIO.setup(GPIO_TRIGGER, GPIO.OUT)
 GPIO.setup(GPIO_ECHO, GPIO.IN)
@@ -73,6 +73,7 @@ lm_pwm.start(0)
 lmb_pwm=GPIO.PWM(left_motor_back,1000)
 lmb_pwm.start(0)
 
+GPIO.output(sanitizer_pin,GPIO.LOW)
 
 app = Flask(__name__)
 
@@ -83,8 +84,8 @@ app = Flask(__name__)
 #00001 - backward
 
 
-if(GPIO.input(ir_sensor) == True):
-    GPIO.output(sanitizer,GPIO.HIGH)
+# if(GPIO.input(ir_sensor) == True):
+#     GPIO.output(sanitizer,GPIO.HIGH)
 
 
 def move_bot_forward():
@@ -360,14 +361,14 @@ def dimension():
     GPIO.cleanup()
     return '',204
 
-@app.royte('/sanitizer')
+@app.route('/sanitizer')
 def sanitizer():
     while True:     
         if GPIO.input(ir_sensor):
-            print( "Sanitizer asked" ) 
-            GPIO.output(uv_led1, 1)      
+            # print( "Sanitizer asked" ) 
+            GPIO.output(sanitizer_pin, GPIO.LOW)      
         else:   
-            GPIO.output(uv_led1, 0)  
+            GPIO.output(sanitizer_pin, GPIO.HIGH)  
 
 
 
