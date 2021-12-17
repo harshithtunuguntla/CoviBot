@@ -1,9 +1,12 @@
 from flask import Flask, render_template, request, redirect, Response
 import time
 import RPi.GPIO as GPIO
+from flask.templating import render_template_string
 GPIO.setwarnings(False)
 
 
+
+motor_speed = 40
 
 
 left_motor = 24
@@ -11,8 +14,6 @@ left_motor_back = 23
 
 right_motor = 17
 right_motor_back = 27
-
-motor_speed = 25
 
 uv_led1 = 20
 uv_led2 = 21
@@ -22,6 +23,9 @@ front_led2 = 19
 
 ir_sensor = 6
 sanitizer=7
+
+GPIO_TRIGGER = 8
+GPIO_ECHO = 25
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(left_motor, GPIO.OUT)
@@ -38,7 +42,8 @@ GPIO.setup(front_led2, GPIO.OUT)
 GPIO.setup(ir_sensor,GPIO.IN)
 GPIO.setup(sanitizer,GPIO.IN)
 
-
+GPIO.setup(GPIO_TRIGGER, GPIO.OUT)
+GPIO.setup(GPIO_ECHO, GPIO.IN)
 
 rm_pwm=GPIO.PWM(right_motor,1000)
 rm_pwm.start(0)
@@ -164,6 +169,33 @@ def uv_off():
     GPIO.output(uv_led2, GPIO.LOW)
     pass
 
+def distance():
+    # set Trigger to HIGH
+    GPIO.output(GPIO_TRIGGER, True)
+ 
+    # set Trigger after 0.01ms to LOW
+    time.sleep(0.00001)
+    GPIO.output(GPIO_TRIGGER, False)
+ 
+    StartTime = time.time()
+    StopTime = time.time()
+ 
+    # save StartTime
+    while GPIO.input(GPIO_ECHO) == 0:
+        StartTime = time.time()
+ 
+    # save time of arrival
+    while GPIO.input(GPIO_ECHO) == 1:
+        StopTime = time.time()
+ 
+    # time difference between start and arrival
+    TimeElapsed = StopTime - StartTime
+    # multiply with the sonic speed (34300 cm/s)
+    # and divide by 2, because there and back
+    distance = (TimeElapsed * 34300) / 2
+ 
+    return distance
+
 @app.route('/')
 def landing_page():
     return render_template("landing_page.html")
@@ -191,6 +223,23 @@ def dashboard_1_action(val):
     elif(val=="00001"):
         print("Bot Move Forward Command Activated")
         move_bot_backward()
+    return '',204
+
+@app.route('monitorning')
+def monitorning():
+    return render_template('monitoring.html')
+
+@app.route('monitorning/start')
+def monitoring_start():
+    if(distance()>10):
+        move_bot_forward
+    else:
+        move_bot_right
+    return '',204
+
+@app.route('monitoring/stop')
+def monitorning_stop():
+    move_bot_stop
     return '',204
 
 @app.route('/additional_settings',  methods=['POST','GET'])
