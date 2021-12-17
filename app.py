@@ -35,6 +35,8 @@ front_led2 = 19
 ir_sensor = 6
 sanitizer=7
 
+buzzer = 11
+
 GPIO_TRIGGER = 8
 GPIO_ECHO = 25
 
@@ -55,6 +57,9 @@ GPIO.setup(sanitizer,GPIO.OUT)
 
 GPIO.setup(GPIO_TRIGGER, GPIO.OUT)
 GPIO.setup(GPIO_ECHO, GPIO.IN)
+
+GPIO.setup(buzzer, GPIO.OUT)
+
 
 rm_pwm=GPIO.PWM(right_motor,1000)
 rm_pwm.start(0)
@@ -83,24 +88,22 @@ if(GPIO.input(ir_sensor) == True):
 
 
 def move_bot_forward():
-    if True:
-        global motor_speed
-        lm_pwm.ChangeDutyCycle(motor_speed)
-        rm_pwm.ChangeDutyCycle(motor_speed)
 
-        lmb_pwm.ChangeDutyCycle(0)
-        rmb_pwm.ChangeDutyCycle(0)
+    global motor_speed
+    lm_pwm.ChangeDutyCycle(motor_speed)
+    rm_pwm.ChangeDutyCycle(motor_speed)
+
+    lmb_pwm.ChangeDutyCycle(0)
+    rmb_pwm.ChangeDutyCycle(0)
 
 
 
-        # GPIO.output(left_motor, GPIO.HIGH)
-        # GPIO.output(right_motor, GPIO.HIGH)
-        # GPIO.output(left_motor_back, GPIO.LOW)
-        # GPIO.output(right_motor_back, GPIO.LOW)
-        print("Sent Command to raspi - move f")
-    else:
-        print("in passs")
-        pass
+    # GPIO.output(left_motor, GPIO.HIGH)
+    # GPIO.output(right_motor, GPIO.HIGH)
+    # GPIO.output(left_motor_back, GPIO.LOW)
+    # GPIO.output(right_motor_back, GPIO.LOW)
+    print("Sent Command to raspi - move f")
+
 
 def move_bot_left():
     global motor_speed
@@ -114,7 +117,7 @@ def move_bot_left():
     # GPIO.output(left_motor_back, GPIO.HIGH)
     # GPIO.output(right_motor_back, GPIO.LOW)
     print("Sent Command to raspi - move l")
-    pass
+    
 
 def move_bot_stop():
     global motor_speed
@@ -205,12 +208,12 @@ def start_lockdown_procedure():
             if(faceLoc1):
                 print("yeah faceloc1")
             
-                GPIO.output(uv_led1,GPIO.HIGH)
+                GPIO.output(buzzer,GPIO.HIGH)
                 faceLoc = faceLoc1[0]
                 print(faceLoc)
                 cv2.rectangle(img,(faceLoc[3],faceLoc[0]),(faceLoc[1],faceLoc[2]),(255,0,255),2)
             else :
-                GPIO.output(uv_led1,GPIO.LOW)
+                GPIO.output(buzzer,GPIO.LOW)
 
             cv2.imshow("Image",img)
             cv2.waitKey(1)
@@ -290,6 +293,8 @@ def lockdown_start():
 def lockdown_stop():
     global lock
     lock=False
+    GPIO.output(buzzer,GPIO.LOW)
+
 
     cv2. destroyAllWindows()
 
@@ -350,6 +355,10 @@ def additional_settings_action(val):
         uv_on()
     return '',204
     
+@app.route('/dimension')
+def dimension():
+    GPIO.cleanup()
+    return '',204
 
 
 
