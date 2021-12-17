@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Additional Settings</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style>
+
+        .namelogo{
+            font-family: 'Inter', sans-serif;
+            font-size: 25px;
+            font-weight:800;
+            color: #1864FF;
+            padding: 1%;
+        }
+        .dashboardheading{
+            font-family: 'Inter', sans-serif;
+            font-size: 40px;
+            font-weight:800;
+            color: #1864FF;
+        }
+
+        .btn {
+            min-width: 250px;
+            background-color: #4E3388;
+            color: white;
+        }
+
+        .columcolor
+        {
+            background-color: #ffe600a4;
+        }
+
+        .rotateicon{
+            transform:rotate(0deg);
+        }
+        .rotateicon90{
+            transform:rotate(90deg);
+        }
+        .rotateicon180{
+            transform:rotate(180deg);
+        }
+        .rotateicon270{
+            transform:rotate(270deg);
+        }
+
+        .spacebuttons {
+        display: flex;
+        justify-content:space-between; 
+        }
+        
+    </style>
+</head>
+
+
+<body>
+
+    <div class="namelogo">
+        CoviBot
+    </div>
+
+
+
+    <div class="row justify-content-center dashboardheading">
+        DashBoard
+    </div>
+
+
+    <div class="container columcolor">
+
+        <div class="row">
+
+            <div class="col-md-1 ">
+
+            </div>
+
+            <div class="col-md-5 flex justify-content-center">
+
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+
+
+
+
+
+                    <div class="row justify-content-center">
+                        <label for="range_value" class="form-label"><h2>LockDown Status: <span id="lockdownstate">OFF</span></h2></label>  
+                    </div>
+
+                        <!-- <br> -->
+                        
+                    <div class="row justify-content-center">
+
+                        <div classs="col-md-5">
+                            <button class="btn" style="background-color: green;" onclick="lockdown_on()">Start LockDown</button>  
+                        </div>
+
+
+                        <div classs="col-md-5">
+                        <button class="btn" style="background-color: red;" onclick="lockdown_off()">Stop LockDown</button>  
+                        </div>
+
+                    </div>
+
+              </div>
+    
+              <div class="col-md-5">
+
+                <br>
+                <br>
+                <br>
+                <br>
+
+
+                <div class="row justify-content-end">
+                <button type="button" class="btn btn-default btn-lg"  onclick="location.href = '/dashboard_1'" >Take Control</button>
+                </div>
+
+                <br>
+
+                <div class="row justify-content-end">
+                <button type="button" class="btn btn-default btn-lg" >Move Bot to room</button>
+                </div>
+
+                <br>
+
+                <div class="row justify-content-end">
+                <button type="button" class="btn btn-default btn-lg disabled" >Scan People</button>
+                </div>
+
+                <br>
+
+                <div class="row justify-content-end">
+                <button type="button" class="btn btn-default btn-lg" >Give Medicine</button>
+                </div>
+
+                <br>
+
+                <div class="row justify-content-end">
+                <button type="button" class="btn btn-default btn-lg " onclick="location.href = '/additional_settings'">Additional Settings</button>
+                </div>
+
+                <br>
+                <br>
+                <br>
+                    
+
+              </div>
+
+              <div class="col-md-1 ">
+
+            </div>
+
+
+
+        </div>
+
+        
+
+    </div>
+
+
+            
+        <script>
+
+            // 10000 - forward
+            // 01000 - left
+            // 00100 - stop
+            // 00010 - right
+            // 00001 - backward
+
+ 
+            function lockdown_on(){
+                console.log("Lockdown On");
+                document.getElementById("lockdownstate").innerHTML = "ON";
+                let url = "/lockdown/start";
+                document.location.href=url;
+                document.location.href="/lockdown/start";
+                
+            }
+
+            function lockdown_off(){
+                console.log("Lockdown oFF ")
+
+                document.getElementById("lockdownstate").innerHTML = "OFF";
+                let url2 = "/lockdown/stop";
+                document.location.href=url2;
+                // shift_url();
+
+
+            }
+
+
+ 
+        </script>
+
+        
+
+        
+</body>
+
+
+
+
+</html>
