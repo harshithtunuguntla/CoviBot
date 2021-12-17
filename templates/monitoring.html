@@ -178,18 +178,35 @@
             // 00010 - right
             // 00001 - backward
 
-            function monitoring_on(){
-                console.log("Monitoring On");
-                document.getElementById("monitoringstate").innerHTML = "ON";
+            var stop_command = null;
+
+            function loop_distance(){
                 let url = "/monitoring/start";
                 document.location.href=url;
             }
 
+ 
+            async function monitoring_on(){
+                console.log("Monitoring On");
+                document.getElementById("monitoringstate").innerHTML = "ON";
+                let url = "/monitoring/start";
+                document.location.href=url;
+
+                stop_command = await setInterval(loop_distance,1);
+            }
+
             function monitoring_off(){
+                console.log("Monitorrning oFF Caalled")
                 console.log("Monitoring Off");
                 document.getElementById("monitoringstate").innerHTML = "OFF";
-                let url = "/monitoring/stop";
-                document.location.href=url;
+                // let url2 = "/monitoring/stop";
+
+
+                clearInterval(stop_command);
+                document.location.href="/monitoring/stop";
+                // shift_url();
+
+
             }
 
 

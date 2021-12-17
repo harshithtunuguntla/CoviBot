@@ -4,9 +4,17 @@ import RPi.GPIO as GPIO
 from flask.templating import render_template_string
 GPIO.setwarnings(False)
 
+import cv2
+import face_recognition
 
+
+cap = cv2.VideoCapture(-1)
 
 motor_speed = 40
+global lock
+
+
+lock=False
 
 
 left_motor = 24
@@ -172,6 +180,31 @@ def uv_off():
     GPIO.output(uv_led2, GPIO.LOW)
     pass
 
+def start_lockdown_procedure():
+
+    global lock
+
+    while lock:
+
+        success,img = cap.read()
+        # img = cv2.rotate(img, cv2.ROTATE_180)
+        faceLoc1 = face_recognition.face_locations(img)
+        print("faces" + str(faceLoc1))
+
+        print(faceLoc1)
+
+        if(faceLoc1):
+        
+            GPIO.output(buzzer,GPIO.HIGH)
+            faceLoc = faceLoc1[0]
+            print(faceLoc)
+            cv2.rectangle(img,(faceLoc[3],faceLoc[0]),(faceLoc[1],faceLoc[2]),(255,0,255),2)
+        else :
+            GPIO.output(buzzer,GPIO.LOW)
+
+        cv2.imshow("Image",img)
+        cv2.waitKey(1)
+
 def distance():
     print('Inside Distance')
     # set Trigger to HIGH
@@ -231,6 +264,26 @@ def dashboard_1_action(val):
         move_bot_backward()
     return '',204
 
+@app.route('/lockdown')
+def lockdown():
+    return render_template('lockdown.html')
+
+@app.route('/lockdown/start')
+def lockdown_start():
+    global lock
+    lock=True
+    start_lockdown_procedure()
+    return '',204
+
+@app.route('/lockdown/stop')
+def lockdown_stop():
+    global lock
+    lock=False
+    start_lockdown_procedure()
+
+    print("Insidde Lockdown Stop")
+    return '',204
+
 @app.route('/monitoring')
 def monitorning():
     return render_template('monitoring.html')
@@ -239,15 +292,13 @@ def monitorning():
 def monitoring_start():
     print("Insidde Monitoring Start")
 
-    while True:
-        print(distance())
-        if(distance()>10):
-            move_bot_forward()
-        else:
-            move_bot_stop()
-        
-        time.sleep(1)
-        
+
+    print(distance())
+    if(distance()>10):
+        move_bot_forward()
+    else:
+        move_bot_stop()
+            
     return '',204
 
 @app.route('/monitoring/stop')
