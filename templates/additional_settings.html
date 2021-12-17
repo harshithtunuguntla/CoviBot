@@ -188,7 +188,7 @@
                 <br>
 
                 <div class="row justify-content-end">
-                <button type="button" class="btn btn-default btn-lg" >Scan People</button>
+                <button type="button" class="btn btn-default btn-lg" onclick="location.href = '/monitorning'">Scan People</button>
                 </div>
 
                 <br>
@@ -232,21 +232,6 @@
             // 00010 - right
             // 00001 - backward
 
-            function move_forward(){
-
-                
-
-                console.log("Inside  forward");
-                document.getElementById("moveforward").style.fill="red";
-                document.getElementById("moveleft").style.fill="black";
-                document.getElementById("moveright").style.fill="black";
-                document.getElementById("moveback").style.fill="black";
-                document.getElementById("movestop").style.fill="black";
-                document.getElementById("botstate").innerHTML = "Moving Forward";
-                let url = "/dashboard_1/10000";
-                document.location.href=url;
-
-            }
 
             function lights_on(){
                 console.log("Lights On");
