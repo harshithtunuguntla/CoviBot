@@ -1,25 +1,56 @@
 from flask import Flask, render_template, request, redirect, Response
 import time
-# import RPi.GPIO as GPIO
-# GPIO.setwarnings(False)
+import RPi.GPIO as GPIO
+GPIO.setwarnings(False)
 
 
 
 
-# left_motor = 23
-# left_motor_back = 24
+left_motor = 24
+left_motor_back = 23
 
-# right_motor = 17
-# right_motor_back = 27
+right_motor = 17
+right_motor_back = 27
 
-# motor_speed = 25
+motor_speed = 25
+
+uv_led1 = 20
+uv_led2 = 21
+
+front_led1 = 13
+front_led2 = 19
+
+ir_sensor = 6
+sanitizer=7
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(left_motor, GPIO.OUT)
+GPIO.setup(right_motor, GPIO.OUT)
+GPIO.setup(left_motor_back, GPIO.OUT)
+GPIO.setup(right_motor_back, GPIO.OUT)
+
+GPIO.setup(uv_led1, GPIO.OUT)
+GPIO.setup(uv_led2, GPIO.OUT)
+
+GPIO.setup(front_led1, GPIO.OUT)
+GPIO.setup(front_led2, GPIO.OUT)
+
+GPIO.setup(ir_sensor,GPIO.IN)
+GPIO.setup(sanitizer,GPIO.IN)
 
 
-# GPIO.setmode(GPIO.BCM)
-# GPIO.setup(left_motor, GPIO.OUT)
-# GPIO.setup(right_motor, GPIO.OUT)
-# GPIO.setup(left_motor_back, GPIO.OUT)
-# GPIO.setup(right_motor_back, GPIO.OUT)
+
+rm_pwm=GPIO.PWM(right_motor,1000)
+rm_pwm.start(0)
+
+rmb_pwm=GPIO.PWM(right_motor_back,1000)
+rmb_pwm.start(0)
+
+lm_pwm=GPIO.PWM(left_motor,1000)
+lm_pwm.start(0)
+
+lmb_pwm=GPIO.PWM(left_motor_back,1000)
+lmb_pwm.start(0)
 
 
 app = Flask(__name__)
@@ -31,63 +62,106 @@ app = Flask(__name__)
 #00001 - backward
 
 
+if(GPIO.input(ir_sensor) == True):
+    GPIO.output(sanitizer,GPIO.HIGH)
 
 
 def move_bot_forward():
-    GPIO.output(left_motor, GPIO.HIGH)
-    GPIO.output(right_motor, GPIO.HIGH)
-    GPIO.output(left_motor_back, GPIO.LOW)
-    GPIO.output(right_motor_back, GPIO.LOW)
+    global motor_speed
+    lm_pwm.ChangeDutyCycle(motor_speed)
+    rm_pwm.ChangeDutyCycle(motor_speed)
+
+    lmb_pwm.ChangeDutyCycle(0)
+    rmb_pwm.ChangeDutyCycle(0)
+
+
+
+    # GPIO.output(left_motor, GPIO.HIGH)
+    # GPIO.output(right_motor, GPIO.HIGH)
+    # GPIO.output(left_motor_back, GPIO.LOW)
+    # GPIO.output(right_motor_back, GPIO.LOW)
     print("Sent Command to raspi - move f")
     pass
 
 def move_bot_left():
-    GPIO.output(left_motor, GPIO.LOW)
-    GPIO.output(right_motor, GPIO.HIGH)
-    GPIO.output(left_motor_back, GPIO.HIGH)
-    GPIO.output(right_motor_back, GPIO.LOW)
+    global motor_speed
+    lmb_pwm.ChangeDutyCycle(motor_speed)
+    rm_pwm.ChangeDutyCycle(motor_speed)
+
+    lm_pwm.ChangeDutyCycle(0)
+    rmb_pwm.ChangeDutyCycle(0)
+    # GPIO.output(left_motor, GPIO.LOW)
+    # GPIO.output(right_motor, GPIO.HIGH)
+    # GPIO.output(left_motor_back, GPIO.HIGH)
+    # GPIO.output(right_motor_back, GPIO.LOW)
     print("Sent Command to raspi - move l")
     pass
 
 def move_bot_stop():
-    GPIO.output(left_motor, GPIO.LOW)
-    GPIO.output(right_motor, GPIO.LOW)
-    GPIO.output(left_motor_back, GPIO.LOW)
-    GPIO.output(right_motor_back, GPIO.LOW)
+    global motor_speed
+    lmb_pwm.ChangeDutyCycle(0)
+    rm_pwm.ChangeDutyCycle(0)
+
+    lm_pwm.ChangeDutyCycle(0)
+    rmb_pwm.ChangeDutyCycle(0)
+    # GPIO.output(left_motor, GPIO.LOW)
+    # GPIO.output(right_motor, GPIO.LOW)
+    # GPIO.output(left_motor_back, GPIO.LOW)
+    # GPIO.output(right_motor_back, GPIO.LOW)
     print("Sent Command to raspi - move s")
 
     pass
 
 def move_bot_right():
-    GPIO.output(left_motor, GPIO.HIGH)
-    GPIO.output(right_motor, GPIO.LOW)
-    GPIO.output(left_motor_back, GPIO.LOW)
-    GPIO.output(right_motor_back, GPIO.HIGH)
+    global motor_speed
+    lm_pwm.ChangeDutyCycle(motor_speed)
+    rmb_pwm.ChangeDutyCycle(motor_speed)
+
+    lmb_pwm.ChangeDutyCycle(0)
+    rm_pwm.ChangeDutyCycle(0)
+    # GPIO.output(left_motor, GPIO.HIGH)
+    # GPIO.output(right_motor, GPIO.LOW)
+    # GPIO.output(left_motor_back, GPIO.LOW)
+    # GPIO.output(right_motor_back, GPIO.HIGH)
     print("Sent Command to raspi - move r")
     pass
 
 def move_bot_backward():
-    GPIO.output(left_motor_back, GPIO.HIGH)
-    GPIO.output(right_motor_back, GPIO.HIGH)
-    GPIO.output(left_motor, GPIO.LOW)
-    GPIO.output(right_motor, GPIO.LOW)
+    global motor_speed
+    lmb_pwm.ChangeDutyCycle(motor_speed)
+    rmb_pwm.ChangeDutyCycle(motor_speed)
+
+    lm_pwm.ChangeDutyCycle(0)
+    rm_pwm.ChangeDutyCycle(0)
+    # GPIO.output(left_motor_back, GPIO.HIGH)
+    # GPIO.output(right_motor_back, GPIO.HIGH)
+    # GPIO.output(left_motor, GPIO.LOW)
+    # GPIO.output(right_motor, GPIO.LOW)
     print("Sent Command to raspi - move b")
     pass
 
 def lights_on():
+    GPIO.output(front_led1, GPIO.HIGH)
+    GPIO.output(front_led2, GPIO.HIGH)
     print("Inside Lights on")
     pass
 
 def lights_off():
+    GPIO.output(front_led1, GPIO.LOW)
+    GPIO.output(front_led2, GPIO.LOW)
     print("Inside Lights off")
     pass
 
 def uv_on():
     print("Inside UV on")
+    GPIO.output(uv_led1, GPIO.HIGH)
+    GPIO.output(uv_led2, GPIO.HIGH)
     pass
 
 def uv_off():
     print("Inside UV off")
+    GPIO.output(uv_led1, GPIO.LOW)
+    GPIO.output(uv_led2, GPIO.LOW)
     pass
 
 @app.route('/')
@@ -126,7 +200,7 @@ def additional_settings():
         value_received = request.form["entered_motor_value"]
         print(value_received)
         global motor_speed
-        motor_speed = value_received
+        motor_speed = int(value_received)
         print(motor_speed)
         return '',204
 
@@ -137,10 +211,10 @@ def additional_settings():
 @app.route('/additional_settings/<val>')
 def additional_settings_action(val):
     if(val=='l1'):
-        print("Lights Tasdasun on activated")
+        print("Lights Turn on activated")
         lights_on()
     elif(val=="l0"):
-        print("Lights Tuun off activated")
+        print("Lights Turn off activated")
         lights_off()
     elif(val=="u0"):
         print("UV Trun off activated")

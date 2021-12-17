@@ -29,7 +29,7 @@ while True:
         nl.remove(inp2)
 
         
-    GPIO.output(inp,GPIO.HIGH)
+    GPIO.output(inp,GPIO.LOW)
     
     if(inp2!=0):
         GPIO.output(inp2,GPIO.HIGH)
