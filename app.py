@@ -79,7 +79,7 @@ lmb_pwm.start(0)
 
 GPIO.output(sanitizer_pin,GPIO.LOW)
 
-servo_pwm=GPIO.PWM(servo_pin,100)
+servo_pwm=GPIO.PWM(servo_pin,50)
 servo_pwm.start(0)
 
 app = Flask(__name__)
@@ -385,13 +385,17 @@ def medicine():
 @app.route('/medicine/on')
 def medicine_on():
     print("inside medicine on")
-    servo_pwm.ChangeDutyCycle(50)
+    # servo_pwm.ChangeDutyCycle(50)
+    # GPIO.output(servo_pwm, GPIO.HIGH)
+    servo_pwm.ChangeDutyCycle(7)
     return '',204
 
 @app.route('/medicine/off')
 def medicine_off():
     print("inside medicine off")
+    # GPIO.output(servo_pwm, GPIO.LOW)
     servo_pwm.ChangeDutyCycle(0)
+    # servo_pwm.ChangeDutyCycle(0)
     return '',204
 
 @app.route('/dimension')
