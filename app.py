@@ -115,8 +115,8 @@ def move_bot_forward():
 
 def move_bot_left():
     global motor_speed
-    lmb_pwm.ChangeDutyCycle(motor_speed)
-    rm_pwm.ChangeDutyCycle(motor_speed)
+    lm_pwm.ChangeDutyCycle(motor_speed)
+    rmb_pwm.ChangeDutyCycle(motor_speed)
 
     lm_pwm.ChangeDutyCycle(0)
     rmb_pwm.ChangeDutyCycle(0)
@@ -144,8 +144,10 @@ def move_bot_stop():
 
 def move_bot_right():
     global motor_speed
-    lm_pwm.ChangeDutyCycle(motor_speed)
-    rmb_pwm.ChangeDutyCycle(motor_speed)
+    
+
+    lmb_pwm.ChangeDutyCycle(motor_speed)
+    rm_pwm.ChangeDutyCycle(motor_speed)
 
     lmb_pwm.ChangeDutyCycle(0)
     rm_pwm.ChangeDutyCycle(0)
