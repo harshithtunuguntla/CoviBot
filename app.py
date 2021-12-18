@@ -384,11 +384,13 @@ def medicine():
 
 @app.route('/medicine/on')
 def medicine_on():
+    print("inside medicine on")
     servo_pwm.ChangeDutyCycle(50)
     return '',204
-    
+
 @app.route('/medicine/off')
 def medicine_off():
+    print("inside medicine off")
     servo_pwm.ChangeDutyCycle(0)
     return '',204
 
