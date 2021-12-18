@@ -40,6 +40,8 @@ buzzer = 11
 GPIO_TRIGGER = 8
 GPIO_ECHO = 25
 
+servo_pin = 1
+
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(left_motor, GPIO.OUT)
 GPIO.setup(right_motor, GPIO.OUT)
@@ -59,6 +61,8 @@ GPIO.setup(GPIO_TRIGGER, GPIO.OUT)
 GPIO.setup(GPIO_ECHO, GPIO.IN)
 
 GPIO.setup(buzzer, GPIO.OUT)
+GPIO.setup(servo_pin, GPIO.OUT)
+
 
 
 rm_pwm=GPIO.PWM(right_motor,1000)
@@ -74,6 +78,9 @@ lmb_pwm=GPIO.PWM(left_motor_back,1000)
 lmb_pwm.start(0)
 
 GPIO.output(sanitizer_pin,GPIO.LOW)
+
+servo_pwm=GPIO.PWM(servo_pin,100)
+servo_pwm.start(0)
 
 app = Flask(__name__)
 
@@ -356,10 +363,6 @@ def additional_settings_action(val):
         uv_on()
     return '',204
     
-@app.route('/dimension')
-def dimension():
-    GPIO.cleanup()
-    return '',204
 
 
 @app.route('/sanitizer')
@@ -375,6 +378,24 @@ def sanitizer():
         else:   
             GPIO.output(sanitizer_pin, GPIO.HIGH)  
 
+@app.route('/medicine')
+def medicine():
+    return render_template('medicine.html')
+
+@app.route('/medicine/on')
+def medicine_on():
+    servo_pwm.ChangeDutyCycle(50)
+    return '',204
+    
+@app.route('/medicine/off')
+def medicine_off():
+    servo_pwm.ChangeDutyCycle(0)
+    return '',204
+
+@app.route('/dimension')
+def dimension():
+    GPIO.cleanup()
+    return '',204
 
 
 if __name__ == '__main__':
