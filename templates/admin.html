@@ -73,92 +73,78 @@
 
         <div class="row">
 
-            <div class="col-md-1 ">
+            <div class="col-md-2 ">
 
             </div>
 
-            <div class="col-md-5 flex justify-content-center">
+              <div class="col-md-5 ">
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
 
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
+                <div clas="row">
+                <button type="button" class="btn btn-default btn-lg"  onclick="location.href = '/admin/temperature'" >Calculate CPU Temperature</button>
+                </div>
 
-
-
-
-
-                    <div class="row justify-content-center">
-                        <label for="range_value" class="form-label"><h2>LockDown Status: <span id="lockdownstate">OFF</span></h2></label>  
-                    </div>
-
-                        <!-- <br> -->
-                        
-                    <div class="row justify-content-center">
-
-                        <div classs="col-md-5">
-                            <button class="btn" style="background-color: green;" onclick="lockdown_on()">Start LockDown</button>  
-                        </div>
+                <div class="row ">
+                    <p style="font-size: 20px;"><strong>CPU Temperature :</strong> <span id="tempstatus">Not Calculated</span></p>
+                </div>
 
 
-                        <div classs="col-md-5">
-                        <button class="btn" style="background-color: red;" onclick="lockdown_off()">Stop LockDown</button>  
-                        </div>
+                <br>
+                <br>
+                <br>
+                <div clas="row">
+                    <button type="button" class="btn btn-default btn-lg"  onclick="location.href = '/admin/temperature'" >Activate the GPIO Cleanup</button>
+                </div>
+                <div class="row ">
+                    <p style="font-size: 20px;"><span id="gpiocleanupstatus"></span></p>
+                </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
 
-                    </div>
-
+        
               </div>
-    
+
+              <!-- <div class="col-md-1">
+
+              </div> -->
+              
+              
+             
               <div class="col-md-5">
-
                 <br>
                 <br>
                 <br>
                 <br>
-
-
-                <div class="row justify-content-end">
-                <button type="button" class="btn btn-default btn-lg"  onclick="location.href = '/dashboard_1'" >Take Control</button>
-                </div>
-
-                <br>
-
-                <div class="row justify-content-end">
-                <button type="button" class="btn btn-default btn-lg" >Move Bot to room</button>
-                </div>
-
-                <br>
-
-                <div class="row justify-content-end">
-                <button type="button" class="btn btn-default btn-lg disabled" >Scan People</button>
-                </div>
-
-                <br>
-
-                <div class="row justify-content-end">
-                <button type="button" class="btn btn-default btn-lg" >Give Medicine</button>
-                </div>
-
-                <br>
-
-                <div class="row justify-content-end">
-                <button type="button" class="btn btn-default btn-lg " onclick="location.href = '/additional_settings'">Additional Settings</button>
-                </div>
-
                 <br>
                 <br>
-                <br>
-                    
+
+                    <div clas="row">
+                    <button type="button" class="btn btn-default btn-lg"  onclick="location.href = '/admin/motorstest'" >Motors Test</button>
+                    </div>
+    
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                
+
+                    <div clas="row">
+                        <button type="button" class="btn btn-default btn-lg"  onclick="location.href = '/admin/bottest'" >Bot Test</button>
+                    </div>
 
               </div>
 
-              <div class="col-md-1 ">
 
-            </div>
 
 
 
