@@ -90,7 +90,7 @@
                 </div>
 
                 <div class="row ">
-                    <p style="font-size: 20px;"><strong>CPU Temperature :</strong> <span id="tempstatus">Not Calculated</span></p>
+                    <p style="font-size: 20px;"><strong>CPU Temperature :</strong> <span id="temperaturestatus">Not Calculated</span></p>
                 </div>
 
 
@@ -98,7 +98,7 @@
                 <br>
                 <br>
                 <div clas="row">
-                    <button type="button" class="btn btn-default btn-lg"  onclick="location.href = '/admin/temperature'" >Activate the GPIO Cleanup</button>
+                    <button type="button" class="btn btn-default btn-lg"  onclick="location.href = '/admin/gpiocleanup'" >Activate the GPIO Cleanup</button>
                 </div>
                 <div class="row ">
                     <p style="font-size: 20px;"><span id="gpiocleanupstatus"></span></p>
@@ -165,25 +165,7 @@
             // 00001 - backward
 
  
-            function lockdown_on(){
-                console.log("Lockdown On");
-                document.getElementById("lockdownstate").innerHTML = "ON";
-                let url = "/lockdown/start";
-                document.location.href=url;
-                document.location.href="/lockdown/start";
-                
-            }
-
-            function lockdown_off(){
-                console.log("Lockdown oFF ")
-
-                document.getElementById("lockdownstate").innerHTML = "OFF";
-                let url2 = "/lockdown/stop";
-                document.location.href=url2;
-                // shift_url();
-
-
-            }
+            document.getElementById("temperaturestatus").innerHTML = "{{temperature}}";
 
 
  

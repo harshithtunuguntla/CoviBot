@@ -8,7 +8,7 @@ import RPi.GPIO as GPIO
 from flask.templating import render_template_string
 GPIO.setwarnings(False)
 
-
+from gpiozero import CPUTemperature
 
 
 sanitizer_pin = 12
@@ -403,6 +403,60 @@ def dimension():
     GPIO.cleanup()
     return '',204
 
+@app.route('/admin')
+def admin():
+    return render_template('admin.html')
 
+@app.route('/admin/temperature')
+def admin_temp():
+    cpu = CPUTemperature()
+    temp = cpu.temperature
+    return render_template('admin.html',temperature=temp)
+
+@app.route('/admin/gpiocleanup')
+def admin_gpiocleanup():
+    print("Clean up called")
+    GPIO.cleanup()
+    print("Clean up done")
+    return '',204
+
+@app.route('/admin/motorstest')
+def admin_motorstest():
+    print("Inside motors teest")
+    move_bot_forward()
+    time.sleep(1)
+    move_bot_left()
+    time.sleep(1)
+    move_bot_right()
+    time.sleep(1)
+    move_bot_backward()
+    time.sleep(1)
+    move_bot_stop()
+    return '',204
+
+@app.route('/admin/bottest')
+def admin_bottest():
+    print("Insider Bot test")
+    GPIO.output(uv_led1,GPIO.HIGH)
+    time.sleep(1)
+    GPIO.output(uv_led1,GPIO.LOW)
+    GPIO.output(uv_led2,GPIO.HIGH)
+    time.sleep(1)
+    GPIO.output(uv_led2,GPIO.LOW)
+    GPIO.output(front_led1,GPIO.HIGH)
+    time.sleep(1)
+    GPIO.output(front_led1,GPIO.LOW)
+    GPIO.output(front_led2,GPIO.HIGH)
+    time.sleep(1)
+    GPIO.output(front_led2,GPIO.LOW)
+    GPIO.output(sanitizer_pin,GPIO.HIGH)
+    time.sleep(1)
+    GPIO.output(sanitizer_pin,GPIO.LOW)
+    GPIO.output(buzzer,GPIO.HIGH)
+    time.sleep(1)
+    GPIO.output(buzzer,GPIO.LOW)
+
+
+    return '',204
 if __name__ == '__main__':
     app.run(debug=True)
